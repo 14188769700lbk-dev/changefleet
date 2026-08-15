@@ -1,0 +1,72 @@
+{
+  "change": {
+    "change_id": "CF-204",
+    "source_asset": "warehouse.orders",
+    "old_field": "shipping_country",
+    "new_field": "country_code",
+    "reason": "Standardize ISO country identifiers without breaking downstream contracts"
+  },
+  "assets": [
+    {
+      "id": "warehouse.orders",
+      "label": "warehouse.orders",
+      "kind": "dbt model",
+      "owner": "Platform Data",
+      "criticality": "tier_1",
+      "contract": "producer",
+      "file": "warehouse/models/core/orders.sql",
+      "downstream": ["shipping_performance", "revenue_by_market", "daily_fulfillment"]
+    },
+    {
+      "id": "shipping_performance",
+      "label": "shipping_performance",
+      "kind": "dbt model",
+      "owner": "Supply Analytics",
+      "criticality": "tier_2",
+      "contract": "internal",
+      "file": "fulfillment/models/marts/shipping_performance.sql",
+      "downstream": ["country_dashboard"]
+    },
+    {
+      "id": "revenue_by_market",
+      "label": "revenue_by_market",
+      "kind": "dbt model",
+      "owner": "Finance Metrics",
+      "criticality": "tier_1",
+      "contract": "public_output",
+      "file": "finance/models/revenue/revenue_by_market.sql",
+      "downstream": ["board_revenue"]
+    },
+    {
+      "id": "daily_fulfillment",
+      "label": "daily_fulfillment",
+      "kind": "scheduled query",
+      "owner": "Supply Analytics",
+      "criticality": "tier_2",
+      "contract": "internal",
+      "file": "operations/sql/daily_fulfillment.sql",
+      "downstream": []
+    },
+    {
+      "id": "board_revenue",
+      "label": "board_revenue",
+      "kind": "semantic view",
+      "owner": "Finance Metrics",
+      "criticality": "tier_1",
+      "contract": "public_output",
+      "file": null,
+      "downstream": []
+    },
+    {
+      "id": "country_dashboard",
+      "label": "country_dashboard",
+      "kind": "dashboard",
+      "owner": "Growth Analytics",
+      "criticality": "tier_3",
+      "contract": "observed_only",
+      "file": null,
+      "downstream": []
+    }
+  ]
+}
+

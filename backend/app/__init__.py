@@ -1,0 +1,2 @@
+"""ChangeFleet application package."""
+
