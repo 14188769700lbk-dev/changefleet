@@ -56,6 +56,6 @@ The next milestone is a read-only GitHub and dbt Cloud pilot that imports real l
 
 ## Required links before submission
 
-- Public repository: TBD
+- Public repository: https://github.com/14188769700lbk-dev/changefleet
 - Cloud Run demo: TBD
 - Demo video: TBD
